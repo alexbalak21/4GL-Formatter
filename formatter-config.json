@@ -1,0 +1,4 @@
+{
+  "startingStatements": ["If", "For"],
+  "endingStatements": ["Endif", "Next"]
+}
