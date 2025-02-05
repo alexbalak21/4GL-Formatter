@@ -1,8 +1,8 @@
 {
-  "name": "4gl-formatter",
-  "displayName": "4GL Code Formatter",
-  "description": "A formatter for X3 source files",
-  "publisher": "AlexB",
+  "name": "x3-code-formatter",
+  "displayName": "X3 Code Formatter",
+  "description": "X3 Code Formatter for 4GL language",
+  "publisher": "Alex",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.60.0"
@@ -16,31 +16,48 @@
       {
         "id": "x3",
         "aliases": [
-          "X3",
-          "x3"
+          "Sage ERP X3",
+          "X3"
         ],
         "extensions": [
-          ".src"
-        ]
+          ".x3"
+        ],
+        "configuration": "./language-configuration.json"
       }
     ],
-    "grammars": [
+    "commands": [
       {
-        "language": "x3",
-        "scopeName": "source.src",
-        "path": "./syntaxes/x3.tmLanguage.json"
+        "command": "extension.sayHello",
+        "title": "Hello World"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "extension.sayHello",
+          "when": "editorTextFocus",
+          "group": "navigation"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "extension.sayHello",
+        "key": "ctrl+shift+h",
+        "when": "editorTextFocus"
       }
     ]
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./"
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install"
   },
   "devDependencies": {
-    "typescript": "^4.0.0",
+    "typescript": "^4.4.3",
     "vscode": "^1.1.37",
-    "tslint": "^5.20.1",
-    "eslint": "^7.32.0",
-    "eslint-plugin-vscode": "^1.0.0"
+    "@types/node": "^14.14.37",
+    "@types/vscode": "^1.60.0"
   }
 }
