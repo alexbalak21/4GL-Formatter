@@ -1,8 +1,8 @@
 import * as vscode from "vscode";
 
 export function activate(context: vscode.ExtensionContext) {
-  context.subscriptions.push(
-    vscode.languages.registerDocumentFormattingEditProvider("x3", {
+  context.subscriptions.push(  
+    vscode.languages.registerDocumentFormattingEditProvider('x3', {
       provideDocumentFormattingEdits(document: vscode.TextDocument): vscode.TextEdit[] {
         const edits: vscode.TextEdit[] = [];
         let indentLevel = 0;

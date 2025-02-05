@@ -17,7 +17,13 @@
         "command": "4gl-formatter.helloWorld",
         "title": "Hello World"
       }
-    ]
+    ],
+    "languages": [
+      {
+        "id": "x3",
+        "aliases": ["X3"],
+        "extensions": [".src"]
+    }]
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
