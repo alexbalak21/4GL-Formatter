@@ -1,6 +1,22 @@
 import * as vscode from "vscode";
+import * as path from "path";
+import * as fs from "fs";
+
+interface FormatterConfig {
+  startStatement: string;
+  middleStatement: string;
+  endStatement: string;
+}
+
+function getConfig(): FormatterConfig {
+  const configPath = path.join(__dirname, "..", "formatter-config.json");
+  const configContent = fs.readFileSync(configPath, "utf-8");
+  return JSON.parse(configContent) as FormatterConfig;
+}
 
 export function activate(context: vscode.ExtensionContext) {
+  const config = getConfig();
+
   context.subscriptions.push(
     vscode.languages.registerDocumentFormattingEditProvider("x3", {
       provideDocumentFormattingEdits(document: vscode.TextDocument): vscode.TextEdit[] {
@@ -12,7 +28,7 @@ export function activate(context: vscode.ExtensionContext) {
           const line = document.lineAt(i);
           const trimmedLine = line.text.trim();
 
-          if (trimmedLine.startsWith("Endif")) {
+          if (trimmedLine.startsWith(config.endStatement)) {
             indentLevel--;
           }
 
@@ -21,7 +37,7 @@ export function activate(context: vscode.ExtensionContext) {
             edits.push(vscode.TextEdit.replace(line.range, newText));
           }
 
-          if (trimmedLine.startsWith("If")) {
+          if (trimmedLine.startsWith(config.startStatement) || trimmedLine.startsWith(config.middleStatement)) {
             indentLevel++;
           }
         }

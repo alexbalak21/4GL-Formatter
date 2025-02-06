@@ -1,4 +1,5 @@
 {
-  "startingStatements": ["If", "For"],
-  "endingStatements": ["Endif", "Next"]
+  "startStatement": "If",
+  "middleStatement": "Else",
+  "endStatement": "Endif"
 }
