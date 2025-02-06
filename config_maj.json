@@ -1,0 +1,11 @@
+[
+  {
+    "startStatement": "If",
+    "middleStatements": ["Else", "Elsif"],
+    "endStatement": "Endif"
+  },
+  {
+    "startStatement": "For",
+    "endStatement": "Next"
+  }
+]
