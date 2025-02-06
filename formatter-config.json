@@ -1,5 +1,5 @@
 {
   "startStatement": "If",
-  "middleStatement": "Else",
+  "middleStatements": ["Else", "Elsif"],
   "endStatement": "Endif"
 }

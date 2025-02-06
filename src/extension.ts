@@ -4,7 +4,7 @@ import * as fs from "fs";
 
 interface FormatterConfig {
   startStatement: string;
-  middleStatement: string;
+  middleStatements: string[];
   endStatement: string;
 }
 
@@ -32,12 +32,21 @@ export function activate(context: vscode.ExtensionContext) {
             indentLevel--;
           }
 
-          const newText = indent.repeat(indentLevel) + trimmedLine;
-          if (newText !== line.text) {
-            edits.push(vscode.TextEdit.replace(line.range, newText));
+          if (config.middleStatements.some((stmt) => trimmedLine.startsWith(stmt))) {
+            indentLevel--;
+            const newText = indent.repeat(indentLevel) + trimmedLine;
+            if (newText !== line.text) {
+              edits.push(vscode.TextEdit.replace(line.range, newText));
+            }
+            indentLevel++;
+          } else {
+            const newText = indent.repeat(indentLevel) + trimmedLine;
+            if (newText !== line.text) {
+              edits.push(vscode.TextEdit.replace(line.range, newText));
+            }
           }
 
-          if (trimmedLine.startsWith(config.startStatement) || trimmedLine.startsWith(config.middleStatement)) {
+          if (trimmedLine.startsWith(config.startStatement)) {
             indentLevel++;
           }
         }
